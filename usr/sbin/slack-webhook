@@ -53,7 +53,7 @@ main() {
   #Check for -h, --help first
   for var in "$@"
   do
-     if [ $var = "-h" ] || [ $var = "--help" ]; then
+     if [ "$var" = "-h" ] || [ "$var" = "--help" ]; then
        usage
      fi
   done
@@ -110,16 +110,16 @@ main() {
   #   Uncomment this section for testing
   #
   ######################################
-  echo "USERNAME:       $USERNAME"
-  echo "LEVEL:          $LEVEL"
-  echo "EMOJI:          $EMOJI"
-  echo "ROOM:           $ROOM"
-  echo "TITLE:          $TITLE"
-  echo "MESSAGE:        $MESSAGE"
-  echo "TITLE_RIGHT:    $TITLE_RIGHT"
-  echo "MESSAGE_RIGHT:  $MESSAGE_RIGHT"
-  echo "COLOR:          $COLOR"
-  echo ""
+  #echo "USERNAME:       $USERNAME"
+  #echo "LEVEL:          $LEVEL"
+  #echo "EMOJI:          $EMOJI"
+  #echo "ROOM:           $ROOM"
+  #echo "TITLE:          $TITLE"
+  #echo "MESSAGE:        $MESSAGE"
+  #echo "TITLE_RIGHT:    $TITLE_RIGHT"
+  #echo "MESSAGE_RIGHT:  $MESSAGE_RIGHT"
+  #echo "COLOR:          $COLOR"
+  #echo ""
   ####################################### 
   #
   # End test section
@@ -179,7 +179,7 @@ color(){
 #
 ####################################################
 post_msg() {
-  curl -H "Content-type:application/json" \
+  RETURN_VAL=$(curl -H "Content-type:application/json" \
   -X POST -d \
   '{
      "channel" : "#'"$ROOM"'",
@@ -197,7 +197,13 @@ post_msg() {
           ]
         }
       ]
-  }' $SLACK_URL_HOOK
+  }' $SLACK_URL_HOOK)
+
+  #Bad return
+  if [ "$RETURN_VAL" != "ok" ]; then
+    echo "Error posting to slack incoming webhook"
+    exit 1
+  fi
 }
 
 ####################################################
@@ -208,7 +214,7 @@ post_msg() {
 #
 ####################################################
 post_double_msg() {
-  curl -H "Content-type:application/json" \
+  RETURN_VAL=$(curl -H "Content-type:application/json" \
   -X POST -d \
   '{
      "channel" : "#'"$ROOM"'",
@@ -232,7 +238,13 @@ post_double_msg() {
           ]
         }
       ]
-  }' $SLACK_URL_HOOK
+  }' $SLACK_URL_HOOK)
+
+  #Bad return
+  if [ "$RETURN_VAL" != "ok" ]; then
+    echo "Error posting to slack incoming webhook"
+    exit 1
+  fi
 }
 
 main "$@"
