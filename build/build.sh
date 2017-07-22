@@ -27,7 +27,9 @@
 ######################
 #
 # Configuration
-#   - 
+#   - Replace UPDATE-ME in SLACK_WEBHOOKS
+#     with your own webhook ex.
+#     https://hooks.slack.com/services/T0437LKLE/B07C8KSS3/XXXXXXXXXX 
 #
 ######################
 
