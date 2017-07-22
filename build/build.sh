@@ -49,6 +49,13 @@ if [ $SLACK_WEBHOOK = "UPDATE-ME" ]; then
   exit 1
 fi
 
+# Must be run as sudo in order to change ownership of file
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run with admin privileges 'sudo'"
+    echo "Only to change the user:group of files in the debian package"
+    echo "exiting...."
+    exit 1
+fi
 
 
 # Control file
@@ -129,6 +136,12 @@ tar -X ignore.txt -czvf $DEB_BUILD_DIR/$PROJECT.tgz -C .. .
 tar -xzvf $DEB_BUILD_DIR/$PROJECT.tgz -C $PKG_BUILD_DIR/$INSTALL_DIR
 rm $DEB_BUILD_DIR/$PROJECT.tgz
 
+######################################
+#
+# Change owner of all files to root:root
+#
+######################################
+chown -R root:root $DEB_BUILD_DIR/$PACKAGE
 
 ######################################
 #
