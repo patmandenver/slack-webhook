@@ -179,7 +179,7 @@ color(){
 #
 ####################################################
 post_msg() {
-  RETURN_VAL=$(curl -H "Content-type:application/json" \
+  RETURN_VAL=$(curl -s -H "Content-type:application/json" \
   -X POST -d \
   '{
      "channel" : "#'"$ROOM"'",
@@ -214,7 +214,7 @@ post_msg() {
 #
 ####################################################
 post_double_msg() {
-  RETURN_VAL=$(curl -H "Content-type:application/json" \
+  RETURN_VAL=$(curl -s -H "Content-type:application/json" \
   -X POST -d \
   '{
      "channel" : "#'"$ROOM"'",
