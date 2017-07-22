@@ -33,7 +33,7 @@
 #
 ######################
 
-SLACK_WEBHOOK="UPDATE-ME"
+SLACK_URL_HOOK="UPDATE-ME"
 
 PROJECT="slack-webhooks"
 INSTALL_DIR="/"
@@ -44,8 +44,8 @@ PACKAGE="${PROJECT}_${VERSION}-${ARCH}"
 
 
 # Must fill out UPDATE-ME fields
-if [ $SLACK_WEBHOOK = "UPDATE-ME" ]; then
-  echo "ERROR: SLACK_WEBHOOK variable has not been set in build.sh"
+if [ $SLACK_URL_HOOK = "UPDATE-ME" ]; then
+  echo "ERROR: SLACK_URL_HOOK variable has not been set in build.sh"
   exit 1
 fi
 
@@ -135,6 +135,14 @@ tar -X ignore.txt -czvf $DEB_BUILD_DIR/$PROJECT.tgz -C .. .
 ######################################
 tar -xzvf $DEB_BUILD_DIR/$PROJECT.tgz -C $PKG_BUILD_DIR/$INSTALL_DIR
 rm $DEB_BUILD_DIR/$PROJECT.tgz
+
+######################################
+#
+# Update the SLACK_URL_HOOK field in
+# usr/sbin/slack-webhooks
+#
+######################################
+sed -i "s%<<UPDATE-ME>>%$SLACK_URL_HOOK%g" $DEB_BUILD_DIR/$PACKAGE/usr/sbin/slack-webhook
 
 ######################################
 #
