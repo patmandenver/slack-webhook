@@ -201,7 +201,7 @@ post_msg() {
 
   #Bad return
   if [ "$RETURN_VAL" != "ok" ]; then
-    echo "Error posting to slack incoming webhook"
+    echo "Error posting to slack incoming webhook, msg: $RETURN_VAL"
     exit 1
   fi
 }
@@ -242,7 +242,7 @@ post_double_msg() {
 
   #Bad return
   if [ "$RETURN_VAL" != "ok" ]; then
-    echo "Error posting to slack incoming webhook"
+    echo "Error posting to slack incoming webhook, msg: $RETURN_VAL"
     exit 1
   fi
 }
