@@ -12,7 +12,7 @@ Copy this file over to /lib/systemd/system/ and enable it
 
 `sudo mkdir /etc/slack-webhooks/`
 
-`sudo cp slack_enfironment_file /etc/slack-webhooks/`
+`sudo cp slack_environment_file /etc/slack-webhooks/`
 
 
 Then reboot and see the messages get posted to a slack room.
