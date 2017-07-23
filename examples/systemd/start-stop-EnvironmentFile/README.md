@@ -7,13 +7,12 @@ Copy this file over to /lib/systemd/system/ and enable it
 
 `sudo systemctl enable slack-notify-start-stop.service`
 
-Create the folder /etc/slack-webhooks and copy scripts there
+
+## Create the folder /etc/slack-webhooks and copy EnvironmentFile there
 
 `sudo mkdir /etc/slack-webhooks/`
 
-`sudo cp slack_start.sh /etc/slack-webhooks/`
-
-`sudo cp slack_stop.sh /etc/slack-webhooks/`
+`sudo cp slack_enfironment_file /etc/slack-webhooks/`
 
 
 Then reboot and see the messages get posted to a slack room.

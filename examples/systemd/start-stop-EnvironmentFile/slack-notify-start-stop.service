@@ -9,9 +9,15 @@ ConditionFileIsExecutable=/usr/sbin/slack-webhook
 Type=oneshot
 User=root
 Group=root
-EnvironmentFile=-/etc/scack-webhooks/slack_environment_file
-ExecStartPre=-/etc/slack-webhooks/slack_start.sh
-ExecStart=/usr/sbin/slack-webhook $SLACK_WEBHOOK_ARGS
-ExecStopPre=-/etc/slack-webhooks/slack_stop.sh
-ExecStop=/usr/sbin/slack-webhook $SLACK_WEBHOOK_ARGS
+
+#Left this as an example that you can just set env var one at a time
+#Environment="ROOM=general"
+
+EnvironmentFile=/etc/slack-webhooks/slack_environment_file
+ExecStart=/usr/sbin/slack-webhook -r $ROOM -u $USER -e $EMOJI -l info \
+                                  -t $TITLE -m $MSG \
+                                  --title-right $TITLE_RIGHT --message-right $MSG_RIGHT
+ExecStop=/usr/sbin/slack-webhook -r $ROOM -u $USER -e $EMOJI -l info \
+                                  -t $TITLE -m $MSG \
+                                  --title-right $TITLE_RIGHT --message-right $MSG_RIGHT
 RemainAfterExit=yes
