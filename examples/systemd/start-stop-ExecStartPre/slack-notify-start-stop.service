@@ -1,0 +1,21 @@
+[Unit]
+Description=Notify a slack room when this server starts/stops
+Requires=network.target
+After=network.target
+Before=shutdown.target
+ConditionFileIsExecutable=/usr/sbin/slack-webhook
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+EnvironmentFile=-/etc/slack-webhooks/slack_environment_file
+#This script creates the EnvironmentFile
+ExecStartPre=/etc/slack-webhooks/slack_start_create_EnvironmentFile.sh
+ExecStart=/usr/sbin/slack-webhook -r $ROOM -u $USER -e $EMOJI -l info \
+                                  -t $TITLE -m $MSG \
+                                  --title-right $TITLE_RIGHT --message-right $MSG_RIGHT
+ExecStop=/usr/sbin/slack-webhook -r $ROOM -u $USER -e $EMOJI -l info \
+                                  -t $TITLE -m $MSG \
+                                  --title-right $TITLE_RIGHT --message-right $MSG_RIGHT
+RemainAfterExit=yes
