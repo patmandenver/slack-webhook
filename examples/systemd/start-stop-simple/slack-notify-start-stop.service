@@ -1,0 +1,14 @@
+[Unit]
+Description=Notify a slack room when this server starts/stops
+Requires=network.target
+After=network.target
+Before=shutdown.target
+ConditionFileIsExecutable=/usr/sbin/slack-webhook
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/sbin/slack-webhook -r dev_ops -u ubuntu -e ubuntu -m "Starting Up"
+ExecStop=/usr/sbin/slack-webhook -r dev_ops -u ubuntu -e ubuntu -m "Shutting Down"
+RemainAfterExit=yes
