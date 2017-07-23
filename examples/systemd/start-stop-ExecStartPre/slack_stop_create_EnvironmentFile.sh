@@ -14,7 +14,7 @@ ROOM=dev_ops
 USER=ubuntu
 EMOJI=ubuntu
 LEVEL=info
-TITLE="Server Starting Up!"
+TITLE="Server Shutting Down!"
 TITLE_RIGHT="Drive Status"
 
 #############################################

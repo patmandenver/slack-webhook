@@ -15,6 +15,9 @@ ExecStartPre=/etc/slack-webhooks/slack_start_create_EnvironmentFile.sh
 ExecStart=/usr/sbin/slack-webhook -r $ROOM -u $USER -e $EMOJI -l info \
                                   -t $TITLE -m $MSG \
                                   --title-right $TITLE_RIGHT --message-right $MSG_RIGHT
+#ExecStopPre Does not exist see
+# https://bugs.freedesktop.org/show_bug.cgi?id=73177
+ExecStop=/etc/slack-webhooks/slack_stop_create_EnvironmentFile.sh
 ExecStop=/usr/sbin/slack-webhook -r $ROOM -u $USER -e $EMOJI -l info \
                                   -t $TITLE -m $MSG \
                                   --title-right $TITLE_RIGHT --message-right $MSG_RIGHT
